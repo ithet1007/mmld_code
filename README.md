@@ -84,7 +84,7 @@ python main_baseline.py   # network training for baseline heatmap regression mod
 ```
 
 ## 4. Contact
-Tao He
+
 
 Institution: Intelligent Medical Center, Sichuan University
 
@@ -92,5 +92,5 @@ email: tao_he@scu.edu.cn; taohescu@gmail.com
 
 ## 5. Citation (coming soon)
 
-## 6. FAQ (comming soom)
+## 6. FAQ (coming soom)
 
