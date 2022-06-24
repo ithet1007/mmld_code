@@ -102,7 +102,7 @@ class HNM_propmap(nn.Module):
         ################## classification loss for positive ############################
         cl_pos_loss= self.bceLoss(cl_pred_pos, torch.ones((cl_pred_pos.shape[0],)).to(self.device))
         ################## classification loss for negative ######################
-        cl_neg_loss= 1/self.n_class * self.bceLoss(cl_pred_neg, torch.zeros((cl_pred_neg.shape[0],)).to(self.device))
+        cl_neg_loss= 1/(self.n_class-1) * self.bceLoss(cl_pred_neg, torch.zeros((cl_pred_neg.shape[0],)).to(self.device))
 
         ################# classification loss for hard negative #########################
         cl_hard_neg_loss = 0
