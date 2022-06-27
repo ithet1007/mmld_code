@@ -1,9 +1,7 @@
-# source code is available from https://github.com/wolny/pytorch-3dunet
-# we perform PUNet3D and PResidualUnet3D for yolol
-
 import torch
 from torch import nn as nn
 from torch.nn import functional as F
+import importlib
 
 
 def create_feature_maps(init_channel_number, number_of_fmaps):
@@ -449,20 +447,29 @@ class PUNet3D(nn.Module):
                               conv_layer_order=layer_order, num_groups=num_groups)
             decoders.append(decoder)
         self.decoders = nn.ModuleList(decoders)
-        self.pre_layer = nn.Conv3d(f_maps[2], n_anchor*(3+n_class), kernel_size=1, stride=1)
+        self.early_down1 = nn.Conv3d(f_maps[0], f_maps[2], kernel_size=1, stride=4)
+        self.early_down2 = nn.Conv3d(f_maps[1], f_maps[2], kernel_size=1, stride=2)
+        self.pre_layer = nn.Conv3d(3*f_maps[2], n_anchor*(3+n_class), kernel_size=1, stride=1)
 
 
     def forward(self, x):
         # encoder part
         encoders_features = []
+        
         for encoder in self.encoders:
             x = encoder(x)
+            print("encoder", x.shape)
             # reverse the encoder outputs to be aligned with the decoder
             encoders_features.insert(0, x)
+        
         encoders_features = encoders_features[1:]
         for decoder, encoder_features in zip(self.decoders, encoders_features):
             x = decoder(encoder_features, x)
-        out = self.pre_layer(x)
+            print("decoder", x.shape)
+        
+        early_out1 = self.early_down1(encoders_features[-1])
+        early_out2 = self.early_down2(encoders_features[-2])
+        out = self.pre_layer(torch.cat([early_out1, early_out2, x], 1))
         out = out.reshape(out.shape[0], self.n_anchor, 3+self.n_class, out.shape[2], out.size(3), out.size(4))
         out = out.permute(0,3,4,5,1,2)
         return out
@@ -561,6 +568,7 @@ class ResidualUNet3D(nn.Module):
 
         return x
 
+
 class PResidualUNet3D(nn.Module):
     def __init__(self,  n_class, n_anchor, in_channels=1, f_maps=32, conv_layer_order='cge', num_groups=8,
                  **kwargs):
@@ -590,34 +598,26 @@ class PResidualUNet3D(nn.Module):
             decoders.append(decoder)
 
         self.decoders = nn.ModuleList(decoders)
-        self.pre_layer = nn.Conv3d(f_maps[2], n_anchor*(3+n_class), kernel_size=1, stride=1)
-        
+        self.early_down1 = nn.Conv3d(f_maps[0], f_maps[2], kernel_size=1, stride=4)
+        self.early_down2 = nn.Conv3d(f_maps[1], f_maps[2], kernel_size=1, stride=2)
+        self.pre_layer = nn.Conv3d(3*f_maps[2], n_anchor*(3+n_class), kernel_size=1, stride=1)
         
     def forward(self, x):
         # encoder part
         encoders_features = []
         for encoder in self.encoders:
             x = encoder(x)
+
             encoders_features.insert(0, x)
         encoders_features = encoders_features[1:]
 
         for decoder, encoder_features in zip(self.decoders, encoders_features):
             x = decoder(encoder_features, x)
 
-        out = self.pre_layer(x)
+        early_out1 = self.early_down1(encoders_features[-1])
+        early_out2 = self.early_down2(encoders_features[-2])
+        out = self.pre_layer(torch.cat([early_out1, early_out2, x], 1))
         out = out.reshape(out.shape[0], self.n_anchor, 3+self.n_class, out.shape[2], out.size(3), out.size(4))
         out = out.permute(0,3,4,5,1,2)
         return out
 
-
-
-# def get_model(config):
-#     def _model_class(class_name):
-#         m = importlib.import_module('unet3d.model')
-#         clazz = getattr(m, class_name)
-#         return clazz
-
-#     assert 'model' in config, 'Could not find model configuration'
-#     model_config = config['model']
-#     model_class = _model_class(model_config['name'])
-#     return model_class(**model_config)

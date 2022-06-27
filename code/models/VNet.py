@@ -1,6 +1,3 @@
-# the source code is available from https://github.com/mattmacy/vnet.pytorch
-# the PVNet is our implementation for yolol
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -142,9 +139,6 @@ class VNet(nn.Module):
         return out
 
 
-# our implemented network backbone 
-# ommiting last two upsample layers
-# the prelayer transforms the feature map to n_anchor*(3+n_class)
 class PVNet(nn.Module):
     def __init__(self, n_class, n_anchor=4, elu=True, nll=False):
         super(PVNet, self).__init__()
@@ -154,11 +148,14 @@ class PVNet(nn.Module):
         self.down_tr128 = DownTransition(64, 3, elu, dropout=False)
         self.down_tr256 = DownTransition(128, 2, elu, dropout=False)
 
-        self.pre_layer = nn.Conv3d(128, n_anchor*(3+n_class), kernel_size=1, stride=1)
         self.up_tr256 = UpTransition(256, 256, 2, elu, dropout=False)
         self.up_tr128 = UpTransition(256, 128, 2, elu, dropout=False)
         self.n_anchor = n_anchor
         self.n_class = n_class
+
+        self.early_down1 = nn.Conv3d(16, 64, kernel_size=1, stride=4)
+        self.early_down2 = nn.Conv3d(32, 64, kernel_size=1, stride=2)
+        self.pre_layer = nn.Conv3d(64+64+128, n_anchor*(3+n_class), kernel_size=1, stride=1)
 
     def forward(self, x):
         out16 = self.in_tr(x)
@@ -169,10 +166,11 @@ class PVNet(nn.Module):
         
         out = self.up_tr256(out256, out128)
         out = self.up_tr128(out, out64)
-        out = self.pre_layer(out)
-        
+
+        early_out1 = self.early_down1(out16)
+        early_out2 = self.early_down2(out32)
+        out = self.pre_layer(torch.cat([early_out1, early_out2, out], 1))
         out = out.reshape(out.shape[0], self.n_anchor, 3+self.n_class, out.shape[2], out.size(3), out.size(4))
         out = out.permute(0,3,4,5,1,2)
         return out
-    
     
