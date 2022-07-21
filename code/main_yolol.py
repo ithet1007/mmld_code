@@ -66,7 +66,8 @@ parser.add_argument('--anchors',
                     help='the anchor balls to predict')
 # the test flag | -1 for train, 0 for eval, 1 for test |
 parser.add_argument('--test_flag',default=-1,type=int, choices=[-1, 0, 1])
-
+# the data type | full for dataset with complete landmarks | mini for mini dataset with uncomplete landmarks | all for default dataset
+parser.add_argument('--data_type', default='all',type=str)
 
 DEVICE = torch.device("cuda" if True else "cpu")
 
@@ -122,7 +123,8 @@ def main(args):
             phase = 'test'
         test_dataset = Molar3D(transform=test_transform,
                       phase=phase,
-                      parent_path=args.data_path)
+                      parent_path=args.data_path,
+                      data_type=args.data_type)
 
         testloader = DataLoader(test_dataset,
                                  batch_size=args.batch_size,
@@ -143,7 +145,8 @@ def main(args):
     ])
     train_dataset = Molar3D(transform=train_transform,
                       phase='train',
-                      parent_path=args.data_path)
+                      parent_path=args.data_path,
+                      data_type = args.data_type)
     trainloader = DataLoader(train_dataset,
                              batch_size=args.batch_size,
                              shuffle=True,
@@ -157,7 +160,8 @@ def main(args):
     ])
     eval_dataset = Molar3D(transform=eval_transform,
                       phase='val',
-                      parent_path=args.data_path)
+                      parent_path=args.data_path,
+                      data_type=args.data_type)
     evalloader = DataLoader(eval_dataset,
                             batch_size=args.batch_size,
                             shuffle=False,

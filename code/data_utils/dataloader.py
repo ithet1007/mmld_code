@@ -4,7 +4,7 @@ from torch.utils.data import Dataset
 import nrrd
     
 class Molar3D(Dataset):
-    def __init__(self, transform=None, phase='train', parent_path=None):
+    def __init__(self, transform=None, phase='train', parent_path=None, data_type="full"):
         
         self.data_files = []
         self.label_files = []
@@ -14,6 +14,16 @@ class Molar3D(Dataset):
         for file_name in os.listdir(cur_path):
             if file_name.endswith('_volume.nrrd'):
                 cur_file_abbr = file_name.split("_volume")[0]
+
+                if data_type == "full":
+                    _label = np.load(os.path.join(cur_path, cur_file_abbr+"_label.npy"))
+                    if np.any(np.sum(_label,1)<0):
+                        continue
+                if data_type == "mini":
+                    _label = np.load(os.path.join(cur_path, cur_file_abbr+"_label.npy"))
+                    if np.all(np.sum(_label,1)>0):
+                        continue
+
                 self.data_files.append(os.path.join(cur_path, cur_file_abbr+"_volume.nrrd"))
                 self.label_files.append(os.path.join(cur_path, cur_file_abbr+"_label.npy"))
                 self.spacing.append(os.path.join(cur_path, cur_file_abbr+"_spacing.npy"))
