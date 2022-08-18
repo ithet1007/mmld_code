@@ -1,4 +1,4 @@
-# YOLOL: Towards Robust Mandibular Molar Landmark Detection in CT Volumes
+# YOLOL: Towards Robust Mandibular Molar Landmark Detection on CT Volumes
 
 ![alt text](images/cover.png "Title")
 
@@ -11,7 +11,7 @@ The project aims to identify the anatomy locations of the second and third mandi
 
 * Mandibular molars have different root numbers because of molars' variant growth.
 
-    <img src="images/problem1.png" alt="isolated" width="500"/>
+    <img src="images/problem1.png" alt="isolated" width="300"/>
 
 * Mandibular molars can be damaged by dental diseases, trauma, or surgery.
 
