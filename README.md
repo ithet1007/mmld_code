@@ -37,8 +37,8 @@ The project aims to identify the anatomy locations of the second and third mandi
 - time
 
 ### 2.2 Data Preparation
-The dataset will be available soon!
-<!The dataset is available at https://drive.google.com/file/d/1NGsBbqXZLDlkiSJtDQdyMlXzgnkFoVON/view?usp=sharing>
+<!The dataset will be available soon!>
+The dataset is available at https://drive.google.com/file/d/1NGsBbqXZLDlkiSJtDQdyMlXzgnkFoVON/view?usp=sharing>
 * Data division
 ```
     - mmld_dataset/train     # 458 samples for training
