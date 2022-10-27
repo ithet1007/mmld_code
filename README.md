@@ -37,7 +37,8 @@ The project aims to identify the anatomy locations of the second and third mandi
 - time
 
 ### 2.2 Data Preparation
-The dataset is available at https://drive.google.com/file/d/1NGsBbqXZLDlkiSJtDQdyMlXzgnkFoVON/view?usp=sharing
+The dataset will be available soon!
+<!The dataset is available at https://drive.google.com/file/d/1NGsBbqXZLDlkiSJtDQdyMlXzgnkFoVON/view?usp=sharing>
 * Data division
 ```
     - mmld_dataset/train     # 458 samples for training
@@ -54,7 +55,7 @@ The dataset is available at https://drive.google.com/file/d/1NGsBbqXZLDlkiSJtDQd
 ## 3. Train and Test
 ### 3.1 Network Training 
 
-* Training with different network backbone
+* Training with different network backbones
 ```
 python main_yolol.py --model_name PVNet               # network training using backbone PVNet
 python main_yolol.py --model_name PUNet3D             # network training using backbone PUNet3D
@@ -67,7 +68,7 @@ python main_yolol.py --gpu 0         # training with 1 gpu
 python main_yolol.py --gpu 0,1,2,3   # training with 4 gpus
 ```
 
-### 3.2 Fine-tuning in pretrained checkpoint
+### 3.2 Fine-tuning in a pretrained checkpoint
 ```
 python main_yolol.py --resume ../SavePath/yolol/model.ckpt
 ```
@@ -92,5 +93,5 @@ email: tao_he@scu.edu.cn; taohescu@gmail.com
 
 ## 5. Citation (coming soon)
 
-## 6. FAQ (coming soom)
+## 6. FAQ (coming soon)
 
