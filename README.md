@@ -1,4 +1,4 @@
-# YOLOL: Towards Robust Mandibular Molar Landmark Detection on CT Volumes
+# Toward Robust Landmark Detection with Anchor Ball Regression Model on CT Volumes
 
 ![alt text](images/cover.png "Title")
 
@@ -22,7 +22,7 @@ The project aims to identify the anatomy locations of the second and third mandi
 * A novel landmark regression loss is proposed by predicting offsets to anchor balls.
 * For landmark classification, the online hard negative mining is used for counting loss of nonexistent landmarks and a small regularization constraint loss is performed for voxels outside the anchor balls.
 * In the inference stage, a landmark voting method by caculating the minimum distances among landmark candidates is used for selecting final accurate landmarks.
-* The proposed method presents good performance on 648 CT volumes, and the dataset is public available.
+* The proposed method presents good performance on 648 CT volumes, which is the largest 3D landmark detection dataset to the best of our knowledge.
 
 
 ## 2. Preparation
