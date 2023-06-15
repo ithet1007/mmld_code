@@ -1,13 +1,20 @@
-# Toward Robust Landmark Detection with Anchor Ball Regression Model on CT Volumes
+# A Largescale Benchmark Dataset for Evaluating 3D Skull Landmark Detection
 
 ![alt text](images/cover.png "Title")
 
 ## 1. Introduction
 ### 1.1 What for?
 
-Recent 3D landmark detection methods usually aim to detect landmarks of fixed numbers. However, detecting landmarks of fixed numbers does not satisfy the real clinical needs because tissues or organs may be damaged or absent in the CT volumes. This situation requires the model first to discriminate the existence of landmarks, then to locate the recognized landmarks. 
+In this work, we have identified two limitations that hinder the domain of 3D skull landmark detection:
+* 1. The lack of a standard benchmark dataset to evaluate the performance of automatic landmark detection models is a significant constraint. Through a review of advanced models from 2018 to 2023, listed in the Table, it was found that these models were trained on private datasets with variable data sizes, types, evaluation metrics, and numbers of landmarks.
 
-The project aims to identify the anatomy locations of the second and third mandibular molars' crowns and roots. The task has two main challenges:
+
+* 2. the majority of studies collected data only during pre or postoperative stages. However, in a real-world clinical environment, the model must be robust enough to meet clinical demands with diverse data. Conducting a clinical landmarking evaluation is necessary in both pre and postoperative stages. Unfortunately, most models only focus on identifying a fixed number of landmarks on standard CT or CBCT volumes. 
+
+<img src="images/table.png" alt="isolated" width="400"/>
+- **The references can be find in our paper (coming soon)!
+
+The project of Mandibular Molar Landmarking (MML) aims to identify the anatomy locations of the second and third mandibular molars' crowns and roots. The task has two main challenges:
 
 * Mandibular molars have different root numbers because of molars' variant growth.
 
@@ -19,10 +26,9 @@ The project aims to identify the anatomy locations of the second and third mandi
 
   
 ### 1.2 HighLights
-* A novel landmark regression loss is proposed by predicting offsets to anchor balls.
-* For landmark classification, the online hard negative mining is used for counting loss of nonexistent landmarks and a small regularization constraint loss is performed for voxels outside the anchor balls.
-* In the inference stage, a landmark voting method by caculating the minimum distances among landmark candidates is used for selecting final accurate landmarks.
-* The proposed method presents good performance on 648 CT volumes, which is the largest 3D landmark detection dataset to the best of our knowledge.
+* We created a large-scale benchmark dataset consisting of 648 CT volumes for evaluating 3D skull landmark detection. This dataset is publicly available and is, to the best of our knowledge, the largest public dataset.
+* MML requires models that are robust in clinical environments and are capable of detecting arbitrary landmarks on pre-operative or post-operative CT volumes, meeting real clinical needs.
+* We compared baseline deep learning methods in three aspects: landmark regression models, training losses, neural network structures. An ABR model inspired by YOLOV3 surpassed other baselines. The model combines landmark regression and classification losses for network training, resulting in better performance than the usual heatmap and offset regression methods.
 
 
 ## 2. Preparation
@@ -84,14 +90,37 @@ python main_yolol.py --test_flag 1 --resume ../SavePath/yolol/model.ckpt  # calc
 python main_baseline.py   # network training for baseline heatmap regression model 
 ```
 
-## 4. Contact
+## 4. Leadboard (Update 2023/06/15)
+
+### The ACC, F1, MRE, and SDR on the MINI subset.
+
+| **Models**   | **ACC (%)** | **F1 (%)** | **MRE±Std (mm)** | **SDR-2mm (%)** | **SDR-2.5mm (%)** | **SDR-3mm (%)** | **SDR-4mm (%)** |
+| :----------- | :---------- | :--------- | :--------------- | :-------------- | :---------------- | :-------------- | :-------------- |
+| Our Baseline | 93.04%      | 94.98      | 2.26±1.26        | 61.89           | 74.86             | 82.43           | 91.89           |
+|              |             |            |                  |                 |                   |                 |                 |
+|              |             |            |                  |                 |                   |                 |                 |
+|              |             |            |                  |                 |                   |                 |                 |
+
+
+### The MRE and SDR on the whole dataset.
+
+
+| **Models**   | **MRE±Std (mm)** | **SDR-2mm (%)** | **SDR-2.5mm (%)** | **SDR-3mm (%)** | **SDR-4mm (%)** |
+| :----------- | :--------------- | :-------------- | :---------------- | :-------------- | :-------------- |
+| Our Baseline | 1.70±0.72        | 76.43           | 86.45             | 90.91           | 95.20           |
+|              |                  |                 |                   |                 |                 |
+|              |                  |                 |                   |                 |                 |
+|              |                  |                 |                   |                 |                 |
+
+
+
+
+## 5. Contact
 
 
 Institution: Intelligent Medical Center, Sichuan University
 
 email: tao_he@scu.edu.cn; taohescu@gmail.com
 
-## 5. Citation (coming soon)
-
-## 6. FAQ (coming soon)
+## 6. Citation (coming soon)
 
