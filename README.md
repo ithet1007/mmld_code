@@ -99,9 +99,9 @@ python main_baseline.py   # network training for baseline heatmap regression mod
 | **Models**   | **ACC(%)** | **F1(%)** | **MRE±Std(mm)** | **SDR-2mm(%)** | **SDR-2.5mm(%)** | **SDR-3mm(%)** | **SDR-4mm(%)** |
 | :----------- | :---------- | :--------- | :--------------- | :-------------- | :---------------- | :-------------- | :-------------- |
 | Our Baseline | 93.04%      | 94.98      | 2.26±1.26        | 61.89           | 74.86             | 82.43           | 91.89           |
-|              |             |            |                  |                 |                   |                 |                 |
-|              |             |            |                  |                 |                   |                 |                 |
-|              |             |            |                  |                 |                   |                 |                 |
+|   placeholder           |             |            |                  |                 |                   |                 |                 |
+|    placeholder          |             |            |                  |                 |                   |                 |                 |
+|    placeholder          |             |            |                  |                 |                   |                 |                 |
 
 
 ### The MRE and SDR on the whole dataset.
@@ -110,9 +110,9 @@ python main_baseline.py   # network training for baseline heatmap regression mod
 | **Models**   | **MRE±Std(mm)** | **SDR-2mm(%)** | **SDR-2.5mm(%)** | **SDR-3mm(%)** | **SDR-4mm(%)** |
 | :----------- | :--------------- | :-------------- | :---------------- | :-------------- | :-------------- |
 | Our Baseline | 1.70±0.72        | 76.43           | 86.45             | 90.91           | 95.20           |
-|              |                  |                 |                   |                 |                 |
-|              |                  |                 |                   |                 |                 |
-|              |                  |                 |                   |                 |                 |
+|   placeholder           |                  |                 |                   |                 |                 |
+|   placeholder           |                  |                 |                   |                 |                 |
+|  placeholder            |                  |                 |                   |                 |                 |
 
 
 
