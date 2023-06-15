@@ -11,9 +11,11 @@ In this work, we have identified two limitations that hinder the domain of 3D sk
 
 * 2. the majority of studies collected data only during pre or postoperative stages. However, in a real-world clinical environment, the model must be robust enough to meet clinical demands with diverse data. Conducting a clinical landmarking evaluation is necessary in both pre and postoperative stages. Unfortunately, most models only focus on identifying a fixed number of landmarks on standard CT or CBCT volumes. 
 
-<img src="images/table.png" alt="isolated" width="400"/>
-- **The references can be find in our paper (coming soon)!
-
+<img src="images/table.png" alt="isolated" width="800"/>
+**The references can be find in our paper (coming soon)!
+  
+  
+  
 The project of Mandibular Molar Landmarking (MML) aims to identify the anatomy locations of the second and third mandibular molars' crowns and roots. The task has two main challenges:
 
 * Mandibular molars have different root numbers because of molars' variant growth.
@@ -94,7 +96,7 @@ python main_baseline.py   # network training for baseline heatmap regression mod
 
 ### The ACC, F1, MRE, and SDR on the MINI subset.
 
-| **Models**   | **ACC (%)** | **F1 (%)** | **MRE±Std (mm)** | **SDR-2mm (%)** | **SDR-2.5mm (%)** | **SDR-3mm (%)** | **SDR-4mm (%)** |
+| **Models**   | **ACC(%)** | **F1(%)** | **MRE±Std(mm)** | **SDR-2mm(%)** | **SDR-2.5mm(%)** | **SDR-3mm(%)** | **SDR-4mm(%)** |
 | :----------- | :---------- | :--------- | :--------------- | :-------------- | :---------------- | :-------------- | :-------------- |
 | Our Baseline | 93.04%      | 94.98      | 2.26±1.26        | 61.89           | 74.86             | 82.43           | 91.89           |
 |              |             |            |                  |                 |                   |                 |                 |
@@ -105,7 +107,7 @@ python main_baseline.py   # network training for baseline heatmap regression mod
 ### The MRE and SDR on the whole dataset.
 
 
-| **Models**   | **MRE±Std (mm)** | **SDR-2mm (%)** | **SDR-2.5mm (%)** | **SDR-3mm (%)** | **SDR-4mm (%)** |
+| **Models**   | **MRE±Std(mm)** | **SDR-2mm(%)** | **SDR-2.5mm(%)** | **SDR-3mm(%)** | **SDR-4mm(%)** |
 | :----------- | :--------------- | :-------------- | :---------------- | :-------------- | :-------------- |
 | Our Baseline | 1.70±0.72        | 76.43           | 86.45             | 90.91           | 95.20           |
 |              |                  |                 |                   |                 |                 |
