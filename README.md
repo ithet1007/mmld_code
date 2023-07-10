@@ -1,4 +1,4 @@
-# A Largescale Benchmark Dataset for Evaluating 3D Skull Landmark Detection
+# Anchor Ball Regression Model for Large-Scale 3D Skull Landmark Detection
 
 ![alt text](images/cover.png "Title")
 
